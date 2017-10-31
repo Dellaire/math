@@ -25,6 +25,15 @@ public class Matrix
 		}
 	}
 
+	public Matrix swapRows(int row1, int row2)
+	{
+		double[] tmpRow = this.matrix[row1];
+		this.matrix[row1] = this.matrix[row2];
+		this.matrix[row2] = tmpRow;
+
+		return this;
+	}
+
 	public Matrix multiplyAndAddLine(double factor, int sourceRow, int targetRow)
 	{
 		for (int column = 0; column < matrix[targetRow].length; column++)
