@@ -11,6 +11,11 @@ public class Matrix
 
 	public Matrix(List<List<Double>> matrix)
 	{
+		if (!this.validate(matrix))
+		{
+			throw new RuntimeException("The rows of the specified matrix have different legths.");
+		}
+
 		this.rows = matrix.size();
 		this.columns = matrix.get(0).size();
 
@@ -68,5 +73,12 @@ public class Matrix
 	public double get(int row, int column)
 	{
 		return this.matrix[row][column];
+	}
+
+	private boolean validate(List<List<Double>> matrix)
+	{
+		int columns = matrix.get(0).size();
+
+		return !matrix.stream().filter(row -> row.size() != columns).findAny().isPresent();
 	}
 }

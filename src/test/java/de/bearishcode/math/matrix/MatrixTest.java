@@ -5,10 +5,24 @@ import static org.junit.Assert.assertThat;
 
 import java.util.Arrays;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class MatrixTest
 {
+	@Rule
+	public ExpectedException exception = ExpectedException.none();
+
+	@Test
+	public void exceptionInCaseOfUnequalRowSize()
+	{
+		this.exception.expect(RuntimeException.class);
+		this.exception.expectMessage("The rows of the specified matrix have different legths.");
+
+		new Matrix(Arrays.asList(Arrays.asList(1.0, 2.0, 3.0), Arrays.asList(-1.0, -2.0)));
+	}
+
 	@Test
 	public void swapRows()
 	{
