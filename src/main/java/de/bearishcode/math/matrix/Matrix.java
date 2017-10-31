@@ -38,7 +38,28 @@ public class Matrix
 	{
 		for (int column = 0; column < matrix[targetRow].length; column++)
 		{
-			matrix[targetRow][column] += factor * matrix[targetRow][column];
+			matrix[targetRow][column] += factor * matrix[sourceRow][column];
+		}
+
+		return this;
+	}
+
+	public Matrix reduceColumn(int column)
+	{
+		for (int row = column + 1; row < this.rows; row++)
+		{
+			double factor = (matrix[row][column] / matrix[column][column]) * -1.0;
+			this.multiplyAndAddLine(factor, column, row);
+		}
+
+		return this;
+	}
+
+	public Matrix reduceToTriangleForm()
+	{
+		for (int row = 0; row < this.rows; row++)
+		{
+			this.reduceColumn(row);
 		}
 
 		return this;
