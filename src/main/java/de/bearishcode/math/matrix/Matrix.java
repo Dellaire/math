@@ -9,15 +9,15 @@ public class Matrix
 	int rows;
 	int columns;
 
-	public Matrix(List<List<Double>> matrix)
+	public Matrix(List<List<Double>> matrixContent)
 	{
-		if (!this.validate(matrix))
+		if (!this.validate(matrixContent))
 		{
 			throw new RuntimeException("The rows of the specified matrix have different legths.");
 		}
 
-		this.rows = matrix.size();
-		this.columns = matrix.get(0).size();
+		this.rows = matrixContent.size();
+		this.columns = matrixContent.get(0).size();
 
 		this.matrix = new double[this.rows][this.columns];
 
@@ -25,7 +25,23 @@ public class Matrix
 		{
 			for (int column = 0; column < this.columns; column++)
 			{
-				this.matrix[row][column] = matrix.get(row).get(column);
+				this.matrix[row][column] = matrixContent.get(row).get(column);
+			}
+		}
+	}
+
+	public Matrix(double[][] matrixContent)
+	{
+		this.rows = matrixContent.length;
+		this.columns = matrixContent[0].length;
+
+		this.matrix = new double[this.rows][this.columns];
+
+		for (int row = 0; row < this.rows; row++)
+		{
+			for (int column = 0; column < this.columns; column++)
+			{
+				this.matrix[row][column] = matrixContent[row][column];
 			}
 		}
 	}
@@ -39,7 +55,17 @@ public class Matrix
 		return this;
 	}
 
-	public Matrix multiplyAndAddLine(double factor, int sourceRow, int targetRow)
+	public Matrix multiplyRow(double factor, int row)
+	{
+		for (int column = 0; column < this.columns; column++)
+		{
+			matrix[row][column] *= factor;
+		}
+
+		return this;
+	}
+
+	public Matrix multiplyAndAddRow(double factor, int sourceRow, int targetRow)
 	{
 		for (int column = 0; column < matrix[targetRow].length; column++)
 		{
@@ -49,22 +75,56 @@ public class Matrix
 		return this;
 	}
 
-	public Matrix reduceColumn(int column)
+	public Matrix reduceColumnForward(int column)
 	{
 		for (int row = column + 1; row < this.rows; row++)
 		{
 			double factor = (matrix[row][column] / matrix[column][column]) * -1.0;
-			this.multiplyAndAddLine(factor, column, row);
+			this.multiplyAndAddRow(factor, column, row);
 		}
 
 		return this;
 	}
 
-	public Matrix reduceToTriangleForm()
+	public Matrix reduceColumnBackward(int column)
+	{
+		for (int row = column - 1; row >= 0; row--)
+		{
+			double factor = (matrix[row][column] / matrix[column][column]) * -1.0;
+			this.multiplyAndAddRow(factor, column, row);
+		}
+
+		return this;
+	}
+
+	public Matrix reduceToRForm()
 	{
 		for (int row = 0; row < this.rows; row++)
 		{
-			this.reduceColumn(row);
+			this.reduceColumnForward(row);
+		}
+
+		return this;
+	}
+
+	public Matrix reduceToLeftRForm()
+	{
+		for (int row = this.rows - 1; row >= 0; row--)
+		{
+			this.reduceColumnBackward(row);
+		}
+
+		return this;
+	}
+
+	public Matrix reduceToDForm()
+	{
+		this.reduceToRForm();
+		this.reduceToLeftRForm();
+
+		for (int row = 0; row < this.rows; row++)
+		{
+			this.multiplyRow(1 / this.matrix[row][row], row);
 		}
 
 		return this;
@@ -73,6 +133,11 @@ public class Matrix
 	public double get(int row, int column)
 	{
 		return this.matrix[row][column];
+	}
+
+	public Matrix copy()
+	{
+		return new Matrix(this.matrix);
 	}
 
 	private boolean validate(List<List<Double>> matrix)
