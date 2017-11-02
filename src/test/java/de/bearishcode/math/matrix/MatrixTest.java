@@ -31,9 +31,20 @@ public class MatrixTest
 
 		matrix2.reduceToRForm();
 
-		assertThat(matrix1.get(1, 0), is(1.0));
-		assertThat(matrix2.get(1, 0), is(0.0));
+		assertThat(matrix1.getElement(1, 0), is(1.0));
+		assertThat(matrix2.getElement(1, 0), is(0.0));
 
+	}
+
+	@Test
+	public void getVector()
+	{
+		Matrix matrix = new Matrix(Arrays.asList(Arrays.asList(1.0, 2.0, 3.0), Arrays.asList(-1.0, -2.0, -3.0)));
+
+		double[] vector = matrix.getVector(1);
+
+		assertThat(vector[0], is(2.0));
+		assertThat(vector[1], is(-2.0));
 	}
 
 	@Test
@@ -43,13 +54,13 @@ public class MatrixTest
 
 		matrix.swapRows(0, 1);
 
-		assertThat(matrix.get(0, 0), is(-1.0));
-		assertThat(matrix.get(0, 1), is(-2.0));
-		assertThat(matrix.get(0, 2), is(-3.0));
+		assertThat(matrix.getElement(0, 0), is(-1.0));
+		assertThat(matrix.getElement(0, 1), is(-2.0));
+		assertThat(matrix.getElement(0, 2), is(-3.0));
 
-		assertThat(matrix.get(1, 0), is(1.0));
-		assertThat(matrix.get(1, 1), is(2.0));
-		assertThat(matrix.get(1, 2), is(3.0));
+		assertThat(matrix.getElement(1, 0), is(1.0));
+		assertThat(matrix.getElement(1, 1), is(2.0));
+		assertThat(matrix.getElement(1, 2), is(3.0));
 	}
 
 	@Test
@@ -59,9 +70,9 @@ public class MatrixTest
 
 		matrix.multiplyRow(-1.0, 0);
 
-		assertThat(matrix.get(0, 0), is(-1.0));
-		assertThat(matrix.get(0, 1), is(-2.0));
-		assertThat(matrix.get(0, 2), is(-3.0));
+		assertThat(matrix.getElement(0, 0), is(-1.0));
+		assertThat(matrix.getElement(0, 1), is(-2.0));
+		assertThat(matrix.getElement(0, 2), is(-3.0));
 	}
 
 	@Test
@@ -71,9 +82,9 @@ public class MatrixTest
 
 		matrix.multiplyAndAddRow(-1.0, 0, 1);
 
-		assertThat(matrix.get(1, 0), is(1.0));
-		assertThat(matrix.get(1, 1), is(1.0));
-		assertThat(matrix.get(1, 2), is(1.0));
+		assertThat(matrix.getElement(1, 0), is(1.0));
+		assertThat(matrix.getElement(1, 1), is(1.0));
+		assertThat(matrix.getElement(1, 2), is(1.0));
 	}
 
 	@Test
@@ -84,25 +95,25 @@ public class MatrixTest
 
 		matrix.reduceColumnForward(1);
 
-		assertThat(matrix.get(0, 0), is(1.0));
-		assertThat(matrix.get(0, 1), is(2.0));
-		assertThat(matrix.get(0, 2), is(3.0));
-		assertThat(matrix.get(0, 3), is(4.0));
+		assertThat(matrix.getElement(0, 0), is(1.0));
+		assertThat(matrix.getElement(0, 1), is(2.0));
+		assertThat(matrix.getElement(0, 2), is(3.0));
+		assertThat(matrix.getElement(0, 3), is(4.0));
 
-		assertThat(matrix.get(1, 0), is(0.0));
-		assertThat(matrix.get(1, 1), is(2.0));
-		assertThat(matrix.get(1, 2), is(3.0));
-		assertThat(matrix.get(1, 3), is(4.0));
+		assertThat(matrix.getElement(1, 0), is(0.0));
+		assertThat(matrix.getElement(1, 1), is(2.0));
+		assertThat(matrix.getElement(1, 2), is(3.0));
+		assertThat(matrix.getElement(1, 3), is(4.0));
 
-		assertThat(matrix.get(2, 0), is(0.0));
-		assertThat(matrix.get(2, 1), is(0.0));
-		assertThat(matrix.get(2, 2), is(1.0));
-		assertThat(matrix.get(2, 3), is(1.0));
+		assertThat(matrix.getElement(2, 0), is(0.0));
+		assertThat(matrix.getElement(2, 1), is(0.0));
+		assertThat(matrix.getElement(2, 2), is(1.0));
+		assertThat(matrix.getElement(2, 3), is(1.0));
 
-		assertThat(matrix.get(3, 0), is(0.0));
-		assertThat(matrix.get(3, 1), is(0.0));
-		assertThat(matrix.get(3, 2), is(1.0));
-		assertThat(matrix.get(3, 3), is(1.0));
+		assertThat(matrix.getElement(3, 0), is(0.0));
+		assertThat(matrix.getElement(3, 1), is(0.0));
+		assertThat(matrix.getElement(3, 2), is(1.0));
+		assertThat(matrix.getElement(3, 3), is(1.0));
 	}
 
 	@Test
@@ -113,25 +124,25 @@ public class MatrixTest
 
 		matrix.reduceColumnBackward(2);
 
-		assertThat(matrix.get(0, 0), is(1.0));
-		assertThat(matrix.get(0, 1), is(1.0));
-		assertThat(matrix.get(0, 2), is(0.0));
-		assertThat(matrix.get(0, 3), is(0.0));
+		assertThat(matrix.getElement(0, 0), is(1.0));
+		assertThat(matrix.getElement(0, 1), is(1.0));
+		assertThat(matrix.getElement(0, 2), is(0.0));
+		assertThat(matrix.getElement(0, 3), is(0.0));
 
-		assertThat(matrix.get(1, 0), is(1.0));
-		assertThat(matrix.get(1, 1), is(1.0));
-		assertThat(matrix.get(1, 2), is(0.0));
-		assertThat(matrix.get(1, 3), is(0.0));
+		assertThat(matrix.getElement(1, 0), is(1.0));
+		assertThat(matrix.getElement(1, 1), is(1.0));
+		assertThat(matrix.getElement(1, 2), is(0.0));
+		assertThat(matrix.getElement(1, 3), is(0.0));
 
-		assertThat(matrix.get(2, 0), is(4.0));
-		assertThat(matrix.get(2, 1), is(3.0));
-		assertThat(matrix.get(2, 2), is(2.0));
-		assertThat(matrix.get(2, 3), is(0.0));
+		assertThat(matrix.getElement(2, 0), is(4.0));
+		assertThat(matrix.getElement(2, 1), is(3.0));
+		assertThat(matrix.getElement(2, 2), is(2.0));
+		assertThat(matrix.getElement(2, 3), is(0.0));
 
-		assertThat(matrix.get(3, 0), is(5.0));
-		assertThat(matrix.get(3, 1), is(4.0));
-		assertThat(matrix.get(3, 2), is(3.0));
-		assertThat(matrix.get(3, 3), is(0.0));
+		assertThat(matrix.getElement(3, 0), is(5.0));
+		assertThat(matrix.getElement(3, 1), is(4.0));
+		assertThat(matrix.getElement(3, 2), is(3.0));
+		assertThat(matrix.getElement(3, 3), is(0.0));
 	}
 
 	@Test
@@ -143,29 +154,29 @@ public class MatrixTest
 
 		matrix.reduceToRForm();
 
-		assertThat(matrix.get(0, 0), is(1.0));
-		assertThat(matrix.get(0, 1), is(1.0));
-		assertThat(matrix.get(0, 2), is(1.0));
-		assertThat(matrix.get(0, 3), is(1.0));
-		assertThat(matrix.get(0, 4), is(1.0));
+		assertThat(matrix.getElement(0, 0), is(1.0));
+		assertThat(matrix.getElement(0, 1), is(1.0));
+		assertThat(matrix.getElement(0, 2), is(1.0));
+		assertThat(matrix.getElement(0, 3), is(1.0));
+		assertThat(matrix.getElement(0, 4), is(1.0));
 
-		assertThat(matrix.get(1, 0), is(0.0));
-		assertThat(matrix.get(1, 1), is(1.0));
-		assertThat(matrix.get(1, 2), is(1.0));
-		assertThat(matrix.get(1, 3), is(1.0));
-		assertThat(matrix.get(1, 4), is(1.0));
+		assertThat(matrix.getElement(1, 0), is(0.0));
+		assertThat(matrix.getElement(1, 1), is(1.0));
+		assertThat(matrix.getElement(1, 2), is(1.0));
+		assertThat(matrix.getElement(1, 3), is(1.0));
+		assertThat(matrix.getElement(1, 4), is(1.0));
 
-		assertThat(matrix.get(2, 0), is(0.0));
-		assertThat(matrix.get(2, 1), is(0.0));
-		assertThat(matrix.get(2, 2), is(1.0));
-		assertThat(matrix.get(2, 3), is(1.0));
-		assertThat(matrix.get(2, 4), is(1.0));
+		assertThat(matrix.getElement(2, 0), is(0.0));
+		assertThat(matrix.getElement(2, 1), is(0.0));
+		assertThat(matrix.getElement(2, 2), is(1.0));
+		assertThat(matrix.getElement(2, 3), is(1.0));
+		assertThat(matrix.getElement(2, 4), is(1.0));
 
-		assertThat(matrix.get(3, 0), is(0.0));
-		assertThat(matrix.get(3, 1), is(0.0));
-		assertThat(matrix.get(3, 2), is(0.0));
-		assertThat(matrix.get(3, 3), is(1.0));
-		assertThat(matrix.get(3, 4), is(1.0));
+		assertThat(matrix.getElement(3, 0), is(0.0));
+		assertThat(matrix.getElement(3, 1), is(0.0));
+		assertThat(matrix.getElement(3, 2), is(0.0));
+		assertThat(matrix.getElement(3, 3), is(1.0));
+		assertThat(matrix.getElement(3, 4), is(1.0));
 	}
 
 	@Test
@@ -177,29 +188,29 @@ public class MatrixTest
 
 		matrix.reduceToLeftRForm();
 
-		assertThat(matrix.get(0, 0), is(1.0));
-		assertThat(matrix.get(0, 1), is(0.0));
-		assertThat(matrix.get(0, 2), is(0.0));
-		assertThat(matrix.get(0, 3), is(0.0));
-		assertThat(matrix.get(0, 4), is(1.0));
+		assertThat(matrix.getElement(0, 0), is(1.0));
+		assertThat(matrix.getElement(0, 1), is(0.0));
+		assertThat(matrix.getElement(0, 2), is(0.0));
+		assertThat(matrix.getElement(0, 3), is(0.0));
+		assertThat(matrix.getElement(0, 4), is(1.0));
 
-		assertThat(matrix.get(1, 0), is(1.0));
-		assertThat(matrix.get(1, 1), is(1.0));
-		assertThat(matrix.get(1, 2), is(0.0));
-		assertThat(matrix.get(1, 3), is(0.0));
-		assertThat(matrix.get(1, 4), is(1.0));
+		assertThat(matrix.getElement(1, 0), is(1.0));
+		assertThat(matrix.getElement(1, 1), is(1.0));
+		assertThat(matrix.getElement(1, 2), is(0.0));
+		assertThat(matrix.getElement(1, 3), is(0.0));
+		assertThat(matrix.getElement(1, 4), is(1.0));
 
-		assertThat(matrix.get(2, 0), is(1.0));
-		assertThat(matrix.get(2, 1), is(1.0));
-		assertThat(matrix.get(2, 2), is(1.0));
-		assertThat(matrix.get(2, 3), is(0.0));
-		assertThat(matrix.get(2, 4), is(1.0));
+		assertThat(matrix.getElement(2, 0), is(1.0));
+		assertThat(matrix.getElement(2, 1), is(1.0));
+		assertThat(matrix.getElement(2, 2), is(1.0));
+		assertThat(matrix.getElement(2, 3), is(0.0));
+		assertThat(matrix.getElement(2, 4), is(1.0));
 
-		assertThat(matrix.get(3, 0), is(1.0));
-		assertThat(matrix.get(3, 1), is(1.0));
-		assertThat(matrix.get(3, 2), is(1.0));
-		assertThat(matrix.get(3, 3), is(1.0));
-		assertThat(matrix.get(3, 4), is(1.0));
+		assertThat(matrix.getElement(3, 0), is(1.0));
+		assertThat(matrix.getElement(3, 1), is(1.0));
+		assertThat(matrix.getElement(3, 2), is(1.0));
+		assertThat(matrix.getElement(3, 3), is(1.0));
+		assertThat(matrix.getElement(3, 4), is(1.0));
 	}
 
 	@Test
@@ -211,28 +222,28 @@ public class MatrixTest
 
 		matrix.reduceToDForm();
 
-		assertThat(matrix.get(0, 0), is(1.0));
-		assertThat(matrix.get(0, 1), is(0.0));
-		assertThat(matrix.get(0, 2), is(0.0));
-		assertThat(matrix.get(0, 3), is(0.0));
-		assertThat(matrix.get(0, 4), is(1.0));
+		assertThat(matrix.getElement(0, 0), is(1.0));
+		assertThat(matrix.getElement(0, 1), is(0.0));
+		assertThat(matrix.getElement(0, 2), is(0.0));
+		assertThat(matrix.getElement(0, 3), is(0.0));
+		assertThat(matrix.getElement(0, 4), is(1.0));
 
-		assertThat(matrix.get(1, 0), is(0.0));
-		assertThat(matrix.get(1, 1), is(1.0));
-		assertThat(matrix.get(1, 2), is(0.0));
-		assertThat(matrix.get(1, 3), is(0.0));
-		assertThat(matrix.get(1, 4), is(1.0));
+		assertThat(matrix.getElement(1, 0), is(0.0));
+		assertThat(matrix.getElement(1, 1), is(1.0));
+		assertThat(matrix.getElement(1, 2), is(0.0));
+		assertThat(matrix.getElement(1, 3), is(0.0));
+		assertThat(matrix.getElement(1, 4), is(1.0));
 
-		assertThat(matrix.get(2, 0), is(0.0));
-		assertThat(matrix.get(2, 1), is(0.0));
-		assertThat(matrix.get(2, 2), is(1.0));
-		assertThat(matrix.get(2, 3), is(0.0));
-		assertThat(matrix.get(2, 4), is(1.0));
+		assertThat(matrix.getElement(2, 0), is(0.0));
+		assertThat(matrix.getElement(2, 1), is(0.0));
+		assertThat(matrix.getElement(2, 2), is(1.0));
+		assertThat(matrix.getElement(2, 3), is(0.0));
+		assertThat(matrix.getElement(2, 4), is(1.0));
 
-		assertThat(matrix.get(3, 0), is(0.0));
-		assertThat(matrix.get(3, 1), is(0.0));
-		assertThat(matrix.get(3, 2), is(0.0));
-		assertThat(matrix.get(3, 3), is(1.0));
-		assertThat(matrix.get(3, 4), is(1.0));
+		assertThat(matrix.getElement(3, 0), is(0.0));
+		assertThat(matrix.getElement(3, 1), is(0.0));
+		assertThat(matrix.getElement(3, 2), is(0.0));
+		assertThat(matrix.getElement(3, 3), is(1.0));
+		assertThat(matrix.getElement(3, 4), is(1.0));
 	}
 }

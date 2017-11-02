@@ -130,9 +130,30 @@ public class Matrix
 		return this;
 	}
 
-	public double get(int row, int column)
+	public int getRows()
+	{
+		return rows;
+	}
+
+	public int getColumns()
+	{
+		return columns;
+	}
+
+	public double getElement(int row, int column)
 	{
 		return this.matrix[row][column];
+	}
+
+	public double[] getVector(int column)
+	{
+		double[] vector = new double[this.rows];
+		for (int row = 0; row < this.rows; row++)
+		{
+			vector[row] = this.matrix[row][column];
+		}
+
+		return vector;
 	}
 
 	public Matrix copy()

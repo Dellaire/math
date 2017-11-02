@@ -3,6 +3,7 @@ package de.bearishcode.math.sle;
 import java.util.List;
 
 import de.bearishcode.math.matrix.Matrix;
+import de.bearishcode.math.vector.VectorEquation;
 
 public class SystemOfLinearEquations
 {
@@ -13,12 +14,30 @@ public class SystemOfLinearEquations
 		this.matrix = new Matrix(content);
 	}
 
-	public List<Double> solve()
+	public SystemOfLinearEquations(VectorEquation vectorEquation1, VectorEquation vectorEquation2)
+	{
+		double[][] matrixContent = new double[vectorEquation1.getDimension()][3];
+		for (int i = 0; i < vectorEquation1.getDimension(); i++)
+		{
+			matrixContent[i][0] = vectorEquation1.getDirection()[i];
+			matrixContent[i][1] = -vectorEquation2.getDirection()[i];
+			matrixContent[i][2] = vectorEquation2.getStartPoint()[i] - vectorEquation1.getStartPoint()[i];
+		}
+
+		this.matrix = new Matrix(matrixContent);
+	}
+
+	public double[] solve()
 	{
 		Matrix newMatrix = this.matrix.copy();
 
-		newMatrix.reduceToRForm();
+		newMatrix.reduceToDForm();
 
-		return null;
+		return newMatrix.getVector(newMatrix.getRows());
+	}
+
+	public double getElement(int row, int column)
+	{
+		return this.matrix.getElement(row, column);
 	}
 }
