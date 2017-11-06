@@ -3,9 +3,6 @@ package de.bearishcode.math.sle;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 
 import de.bearishcode.math.vector.VectorEquation;
@@ -54,11 +51,9 @@ public class SystemOfLinearEquationTest
 	@Test
 	public void solveHardExample()
 	{
-		List<List<Double>> matrix = Arrays.asList(Arrays.asList(10.235, -4.56, 0.0, -0.035, 5.87, 8.95),
-				Arrays.asList(-2.463, 11.27, 3.97, -8.63, -1.08, 20.54),
-				Arrays.asList(-6.58, 2.86, -0.257, 8.32, -43.6, 7.42),
-				Arrays.asList(9.83, 7.39, -17.25, 0.036, 2.486, 5.6),
-				Arrays.asList(-19.31, 3.49, 78.56, 10.07, 65.8, 58.43));
+		double[][] matrix = { { 10.235, -4.56, 0.0, -0.035, 5.87, 8.95 }, { -2.463, 11.27, 3.97, -8.63, -1.08, 20.54 },
+				{ -6.58, 2.86, -0.257, 8.32, -43.6, 7.42 }, { 9.83, 7.39, -17.25, 0.036, 2.486, 5.6 },
+				{ -19.31, 3.49, 78.56, 10.07, 65.8, 58.43 } };
 
 		SystemOfLinearEquations systemOfLinearEquations = new SystemOfLinearEquations(matrix);
 		double[] solutionVector = systemOfLinearEquations.solve();

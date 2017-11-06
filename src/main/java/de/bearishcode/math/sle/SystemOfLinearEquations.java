@@ -9,6 +9,11 @@ public class SystemOfLinearEquations
 {
 	private Matrix matrix;
 
+	public SystemOfLinearEquations(double[][] content)
+	{
+		this.matrix = new Matrix(content);
+	}
+
 	public SystemOfLinearEquations(List<List<Double>> content)
 	{
 		this.matrix = new Matrix(content);
